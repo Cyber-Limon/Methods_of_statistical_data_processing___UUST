@@ -91,3 +91,36 @@ def inverse_matrix(matrix):
     new_matrix = matrix_by_a_number(new_matrix, 1 / determinant)
 
     return new_matrix
+
+
+
+def pairwise_correlation_coefficients(sample):
+    k = len(sample)
+    n = len(sample[0])
+
+    X_means = []
+    for x in sample:
+        X_means.append(sum(x) / len(x))
+
+    S = []
+    for j in range(k):
+        s = 0
+        for i in sample[j]:
+            s += (i - X_means[j]) ** 2
+        S.append((s / n) ** 0.5)
+
+    R = [[[] for _ in range(k)] for _ in range(k)]
+    for l in range(len(R)):
+        for j in range(l, len(R)):
+            if j == l:
+                R[l][j] = 1
+            else:
+                s = 0
+                for i in range(n):
+                    s += (sample[j][i] - X_means[j]) * (sample[l][i] - X_means[l])
+                R[l][j] = R[j][l] = (s / n) / (S[j] * S[l])
+
+    for r in R:
+        print(f"[{"| ".join(f"{i:<{25}}" for i in r)}]")
+
+    return R
