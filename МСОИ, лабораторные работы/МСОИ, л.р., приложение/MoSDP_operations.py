@@ -1,3 +1,7 @@
+### Лабораторная работа 1 ###
+
+
+
 def copy(matrix):
     new_matrix = []
     for row in matrix:
@@ -35,6 +39,10 @@ def det(matrix):
             determinant += complement(matrix, 0, j) * matrix[0][j]
 
     return determinant
+
+
+
+### Лабораторная работа 2 ###
 
 
 
@@ -94,13 +102,19 @@ def inverse_matrix(matrix):
 
 
 
-def pairwise_correlation_coefficients(sample):
-    k = len(sample)
-    n = len(sample[0])
-
+def arithmetic_mean_deviations(sample):
     X_means = []
     for x in sample:
         X_means.append(sum(x) / len(x))
+
+    return X_means
+
+
+def root_mean_square_deviations(sample):
+    X_means = arithmetic_mean_deviations(sample)
+
+    k = len(sample)
+    n = len(sample[0])
 
     S = []
     for j in range(k):
@@ -108,6 +122,16 @@ def pairwise_correlation_coefficients(sample):
         for i in sample[j]:
             s += (i - X_means[j]) ** 2
         S.append((s / n) ** 0.5)
+
+    return S
+
+
+def pairwise_correlation_coefficients(sample):
+    X_means = arithmetic_mean_deviations(sample)
+    S       = root_mean_square_deviations(sample)
+
+    k = len(sample)
+    n = len(sample[0])
 
     R = [[[] for _ in range(k)] for _ in range(k)]
     for l in range(len(R)):
@@ -124,3 +148,37 @@ def pairwise_correlation_coefficients(sample):
         print(f"[{"| ".join(f"{i:<{25}}" for i in r)}]")
 
     return R
+
+
+
+### Лабораторная работа 3 ###
+
+
+
+def tr(matrix):
+    s = 0
+    for i in range(len(matrix)):
+        s += matrix[i][i]
+
+    return s
+
+
+
+def bisection_method(f, a, b, eps = 1e-12):
+    while b - a > eps:
+        c = (a + b) / 2
+
+        if eval(f.replace("lambda", "c")) == 0:
+            return c
+        elif eval(f.replace("lambda", "a")) * eval(f.replace("lambda", "c")) > 0:
+            a = c
+        else:
+            b = c
+
+    return (a + b) / 2
+
+
+
+def matrix_output(matrix):
+    for m in matrix:
+        print(f"[{"| ".join(f"{i:<{25}}" for i in m)}]")
