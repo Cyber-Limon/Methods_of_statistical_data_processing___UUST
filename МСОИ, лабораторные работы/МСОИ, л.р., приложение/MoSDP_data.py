@@ -1,7 +1,10 @@
-def get_data(variant):
-    var      = [Y[variant - 1]] + X[variant - 1]
-    var_data = [[] for _ in range(len(var))]
+def get_data(variant, work = None):
+    if work is None:
+        var = [Y[variant - 1]] + X[variant - 1]
+    else:
+        var = [1, 5, 7, 9, 10]
 
+    var_data = [[] for _ in range(len(var))]
     for k in range(len(var)):
         for n in range(len(data)):
             var_data[k].append(data[n][var[k] - 1])

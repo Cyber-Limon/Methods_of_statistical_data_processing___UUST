@@ -9,7 +9,7 @@ def copy(matrix):
 
     new_matrix = []
     for row in matrix:
-        new_matrix.append(row.copy())
+            new_matrix.append(row.copy())
 
     return new_matrix
 
@@ -52,11 +52,11 @@ def det(matrix):
 
 
 
-def matrix_output(matrix):
+def matrix_output(matrix, length=25):
     """Вывод матрицы в консоль"""
 
     for m in matrix:
-        print(f"[{"| ".join(f"{i:<{25}}" for i in m)}]")
+        print(f"[{"| ".join(f"{i:<{length}}" for i in m)}]")
 
 
 
@@ -389,3 +389,31 @@ def regression_equation(Y, X, form):
         print(f"{"-" * 38} СТЕПЕННОЕ УРАВНЕНИЕ {"-" * 38}\n")
 
     regression_analysis(new_Y, new_X, numbers, form)
+
+
+
+
+
+### Лабораторная работа 4 ###
+
+def matrix_addition(matrix_1, matrix_2):
+    """Сложение матриц"""
+    new_matrix = copy(matrix_1)
+
+    for i in range(len(matrix_1)):
+        for j in range(len(matrix_1[0])):
+            new_matrix[i][j] += matrix_2[i][j]
+
+    return new_matrix
+
+
+
+def matrix_difference(matrix_1, matrix_2):
+    """Разность матриц"""
+    new_matrix = copy(matrix_1)
+
+    for i in range(len(matrix_1)):
+        for j in range(len(matrix_1[0])):
+            new_matrix[i][j] -= matrix_2[i][j]
+
+    return new_matrix
