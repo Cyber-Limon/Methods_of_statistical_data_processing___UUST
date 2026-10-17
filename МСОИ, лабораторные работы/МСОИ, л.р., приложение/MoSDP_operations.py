@@ -56,7 +56,7 @@ def matrix_output(matrix, length=25):
     """Вывод матрицы в консоль"""
 
     for m in matrix:
-        print(f"[{"| ".join(f"{i:<{length}}" for i in m)}]")
+        print(f"[ {" | ".join(f"{i:<{length}}" for i in m)} ]")
 
 
 
@@ -80,11 +80,13 @@ def transpose(matrix):
 def matrix_by_a_number(matrix, k):
     """Умножение матрицы на число"""
 
+    new_matrix = copy(matrix)
+
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
-            matrix[i][j] *= k
+            new_matrix[i][j] *= k
 
-    return matrix
+    return new_matrix
 
 
 
