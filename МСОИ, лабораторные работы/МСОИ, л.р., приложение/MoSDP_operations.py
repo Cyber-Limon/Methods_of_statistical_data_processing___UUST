@@ -131,7 +131,7 @@ def inverse_matrix(matrix):
 
 
 def arithmetic_mean_deviations(sample):
-    """Средние арифметические отклонения"""
+    """Средние арифметические"""
 
     X_means = []
     for x in sample:
