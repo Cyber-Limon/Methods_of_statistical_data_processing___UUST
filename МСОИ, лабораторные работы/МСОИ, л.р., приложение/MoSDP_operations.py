@@ -130,6 +130,14 @@ def inverse_matrix(matrix):
 
 
 
+# Распределение Стьюдента (t-распределение) - по "таблице 2": a = 0.05 и v = n - k - 1
+t_table = {(0.05, 40): 2.021, (0.1, 40): 1.684, (0.2, 40): 1.303, (0.3, 40): 1.050, (0.4, 40): 0.851}
+
+# Распределение Фишера-Снедекора (F-распределение) - по "таблице 4": a = 0.05; v1 = k + 1 и v2 = n - k - 1
+F_table = {(0.05, 6, 47): 2.25, (0.05, 5, 48): 2.37, (0.05, 4, 49): 2.52, (0.05, 3, 50): 2.76, (0.05, 2, 51): 3.15}
+
+
+
 def arithmetic_mean_deviations(sample):
     """Средние арифметические"""
 
@@ -218,14 +226,6 @@ def bisection_method(f, a, b, eps = 1e-12):
 
 
 
-# Распределение Стьюдента (t-распределение) - по "таблице 2": a = 0.05 и v = n - k - 1
-t_table = {(0.05, 40): 2.021, (0.1, 40): 1.684, (0.2, 40): 1.303, (0.3, 40): 1.050, (0.4, 40): 0.851}
-
-# Распределение Фишера-Снедекора (F-распределение) - по "таблице 4": a = 0.05; v1 = k + 1 и v2 = n - k - 1
-F_table = {(0.05, 6, 47): 2.25, (0.05, 5, 48): 2.37, (0.05, 4, 49): 2.52, (0.05, 3, 50): 2.76, (0.05, 2, 51): 3.15}
-
-
-
 def estimate(Y, X, form):
     """Коэффициенты уравнения регрессии"""
 
@@ -292,7 +292,7 @@ def significance_equation(Y, X, b, form):
 
 
 
-def significance_coefficients(X, b, S_2, t_critical):
+def significance_coefficients(X, b, S_2, t_critical, numbers):
     """Значимость коэффициентов регрессии"""
 
     xTx = inverse_matrix(matrix_multiplication(transpose(X), X))
@@ -306,7 +306,7 @@ def significance_coefficients(X, b, S_2, t_critical):
         if abs(t[-1]) > t_critical:
             res = (' > ', '  ')
 
-        print(f"- t_набл(b{i}) = |{t[-1]:{7}.3f}| {res[0]} {t_critical}: {res[1]} значимый")
+        print(f"- t_набл(b{numbers[i]}) = |{t[-1]:{7}.3f}| {res[0]} {t_critical}: {res[1]} значимый")
 
         t[-1] = abs(t[-1])
 
@@ -349,15 +349,15 @@ def regression_analysis(Y, X, numbers, form):
             print()
 
             S_2 = significance_equation(Y, new_X, b, form)
-            t   = significance_coefficients(new_X, b, S_2, t_critical)
+            t   = significance_coefficients(new_X, b, S_2, t_critical, new_numbers)
             print()
 
             step += 1
 
         if min(t) > t_critical:
             print("=" * 97)
-            print(f"Итоговая оценка b_{form}: {b}")
-            print()
+            print(f"При a = {parameters[0]}:\n")
+            print(f"- итоговая оценка b_{form}: {b}\n")
             draw(b, new_numbers, form)
             print("=" * 97)
 
