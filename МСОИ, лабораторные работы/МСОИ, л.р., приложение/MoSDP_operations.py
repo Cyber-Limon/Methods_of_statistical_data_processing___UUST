@@ -335,7 +335,7 @@ def regression_analysis(Y, X, numbers, form):
                 print(f"{"-" * 45} Шаг {step} {"-" * 45}")
 
                 j = t.index(min(t)) + 1
-                print(f"\nМинимальный t: |t_набл(b{j})| <= {t_critical}")
+                print(f"\nМинимальный t: |t_набл(b{new_numbers[j]})| <= {t_critical}")
 
                 for x in new_X:
                     x.pop(j)
